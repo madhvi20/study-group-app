@@ -1,24 +1,46 @@
-# README
+# Study Group App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Rails application for managing study groups, students, and study materials.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+- User authentication with Devise
+- Admin and Student roles
+- Group management
+- Study material upload and sharing
+- Student enrollment in groups
 
-* System dependencies
+## Setup
 
-* Configuration
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   bundle install
+   ```
+3. Set up the database:
+   ```bash
+   rails db:create db:migrate
+   ```
+4. Start the server:
+   ```bash
+   rails server
+   ```
 
-* Database creation
+## Deployment
 
-* Database initialization
+The application is deployed on Heroku. To deploy:
 
-* How to run the test suite
+1. Create a Heroku app
+2. Set up the database:
+   ```bash
+   heroku run rails db:migrate
+   ```
+3. Set up environment variables in Heroku dashboard
 
-* Services (job queues, cache servers, search engines, etc.)
+## Contributing
 
-* Deployment instructions
-
-* ...
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
