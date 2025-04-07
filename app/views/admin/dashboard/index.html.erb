@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  <h1>Admin Dashboard</h1>
+
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Groups</h5>
+          <p class="card-text">Total Groups: <%= @groups.count %></p>
+          <%= link_to "Manage Groups", admin_groups_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Students</h5>
+          <p class="card-text">Total Students: <%= @students.count %></p>
+          <%= link_to "View Students", admin_students_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Study Materials</h5>
+          <p class="card-text">Total Materials: <%= @study_materials.count %></p>
+          <%= link_to "View Materials", study_materials_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="container mt-4">
+  <% if @group %>
+    <h1>Manage Students in <%= @group.name %></h1>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h3>Current Students</h3>
+          </div>
+          <div class="card-body">
+            <% if @group_students.any? %>
+              <div class="list-group">
+                <% @group_students.each do |student| %>
+                  <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                      <% if student.avatar.attached? %>
+                        <%= image_tag student.avatar.variant(resize: "50x50"), class: "rounded-circle me-3" %>
+                      <% end %>
+                      <%= student.email %>
+                    </div>
+                    <%= button_to admin_group_student_path(@group, student), 
+                                method: :delete, 
+                                class: "btn btn-danger btn-sm",
+                                data: { turbo_confirm: "Are you sure?" } do %>
+                      Remove
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <p class="text-muted">No students in this group yet.</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h3>Available Students</h3>
+          </div>
+          <div class="card-body">
+            <% if @available_students.any? %>
+              <div class="list-group">
+                <% @available_students.each do |student| %>
+                  <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                      <% if student.avatar.attached? %>
+                        <%= image_tag student.avatar.variant(resize: "50x50"), class: "rounded-circle me-3" %>
+                      <% end %>
+                      <%= student.email %>
+                    </div>
+                    <%= button_to admin_group_students_path(@group, student_id: student.id),
+                                method: :post,
+                                class: "btn btn-success btn-sm" do %>
+                      Add
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <p class="text-muted">No available students to add.</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <h1>All Students</h1>
+    
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Avatar</th>
+            <th>Email</th>
+            <th>Groups</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @students.each do |student| %>
+            <tr>
+              <td>
+                <% if student.avatar.attached? %>
+                  <%= image_tag student.avatar.variant(resize: "50x50"), class: "rounded-circle" %>
+                <% else %>
+                  <div class="avatar-placeholder">No Avatar</div>
+                <% end %>
+              </td>
+              <td><%= student.email %></td>
+              <td>
+                <% student.groups.each do |group| %>
+                  <span class="badge bg-primary"><%= group.name %></span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+
+  <div class="mt-3">
+    <%= link_to "Back to Dashboard", admin_dashboard_path, class: "btn btn-secondary" %>
+  </div>
+</div>

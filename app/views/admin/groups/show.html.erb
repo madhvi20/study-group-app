@@ -1,0 +1,62 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><%= @group.name %></h1>
+    <div>
+      <%= link_to "Edit Group", edit_admin_group_path(@group), class: "btn btn-primary" %>
+      <%= link_to "Back to Groups", admin_groups_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">Students</h3>
+          <%= link_to "Manage Students", admin_group_students_path(@group), class: "btn btn-primary btn-sm" %>
+        </div>
+        <div class="card-body">
+          <% if @students.any? %>
+            <div class="list-group">
+              <% @students.each do |student| %>
+                <div class="list-group-item d-flex align-items-center">
+                  <% if student.avatar.attached? %>
+                    <%= image_tag student.avatar.variant(resize: "40x40"), class: "rounded-circle me-3" %>
+                  <% end %>
+                  <%= student.email %>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <p class="text-muted">No students in this group yet.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">Study Materials</h3>
+          <%= link_to "Add Study Material", new_admin_group_study_material_path(@group), class: "btn btn-primary btn-sm" %>
+        </div>
+        <div class="card-body">
+          <% if @study_materials.any? %>
+            <div class="list-group">
+              <% @study_materials.each do |material| %>
+                <div class="list-group-item">
+                  <h5 class="mb-1"><%= material.title %></h5>
+                  <p class="mb-1"><%= truncate(material.description, length: 100) %></p>
+                  <% if material.tags.present? %>
+                    <small class="text-muted">Tags: <%= material.tag_list.join(', ') %></small>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <p class="text-muted">No study materials in this group yet.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

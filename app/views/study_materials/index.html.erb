@@ -1,0 +1,32 @@
+<h1>Study Materials</h1>
+
+<% if current_user.admin? %>
+  <p><%= link_to 'Admin Dashboard', admin_dashboard_path, class: 'btn btn-primary' %></p>
+<% end %>
+
+<% if @study_materials.any? %>
+  <div class="study-materials-list">
+    <% @study_materials.each do |material| %>
+      <div class="study-material-card">
+        <h3><%= link_to material.title, study_material_path(material) %></h3>
+        <p><%= truncate(material.description, length: 100) %></p>
+        <div class="meta">
+          <span class="tags">Tags: <%= material.tag_list.join(', ') %></span>
+          <span class="group">Group: <%= material.group.name %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="alert alert-info">
+    <% if current_user.admin? %>
+      <% if Group.any? %>
+        No study materials found. <%= link_to 'Create one now', new_admin_group_study_material_path(Group.first) %>
+      <% else %>
+        <%= link_to 'Create your first group', new_admin_group_path %> to add study materials
+      <% end %>
+    <% else %>
+      No study materials available for your groups yet.
+    <% end %>
+  </div>
+<% end %>
